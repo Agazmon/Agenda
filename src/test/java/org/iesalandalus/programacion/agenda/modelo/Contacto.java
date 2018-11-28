@@ -9,8 +9,8 @@ public class Contacto {
 	private String correo;
 
 	public Contacto(String nombre, String telefono, String correo) {
-		if (nombre==getNombre()) {
-			if (nombre==null) {
+		if (nombre == getNombre()) {
+			if (nombre == null) {
 				throw new IllegalArgumentException("El nombre de un contacto no puede ser nulo o vacío.");
 			}
 			setTelefono(getTelefono());
@@ -18,12 +18,12 @@ public class Contacto {
 		}
 		if (nombre == null | nombre == "")
 			throw new IllegalArgumentException("El nombre de un contacto no puede ser nulo o vacío.");
-		else { 
-		setNombre(nombre);
+		else {
+			setNombre(nombre);
 		}
 		if (telefono == null | telefono == "") {
 			throw new IllegalArgumentException("El teléfono de un contacto no puede ser nulo o vacío.");
-		} else if (telefono.matches(ER_TELEFONO)){
+		} else if (telefono.matches(ER_TELEFONO)) {
 			setTelefono(telefono);
 		} else {
 			throw new IllegalArgumentException("El teléfono no tiene un formato válido.");
@@ -44,7 +44,7 @@ public class Contacto {
 	private void setNombre(String nombre) {
 		if (nombre == null | nombre == "") {
 			throw new IllegalArgumentException("El nombre de un contacto no puede ser nulo o vacío.");
-	}	else { 
+		} else {
 			this.nombre = nombre;
 		}
 	}
@@ -56,12 +56,13 @@ public class Contacto {
 	public void setTelefono(String telefono) {
 		if (telefono == null | telefono == "") {
 			throw new IllegalArgumentException("El teléfono de un contacto no puede ser nulo o vacío.");
-		} else if (telefono.matches(ER_TELEFONO)){
-				this.telefono = telefono;
+		} else if (telefono.matches(ER_TELEFONO)) {
+			this.telefono = telefono;
 		} else {
 			throw new IllegalArgumentException("El teléfono no tiene un formato válido.");
 		}
 	}
+
 	public String getCorreo() {
 		return this.correo;
 	}
@@ -78,20 +79,20 @@ public class Contacto {
 
 	@Override
 	public String toString() {
-		return getInciales() +" [" + telefono +", " + correo+"]";
+		return getInciales() + " [" + telefono + ", " + correo + "]";
 	}
 
 	private String getInciales() {
 		String nombre = this.nombre;
 		char iniciales = ' ';
 		String inicialesCadena = "";
-		nombre= nombre.replaceAll("\\s+", " ");
+		nombre = nombre.replaceAll("\\s+", " ");
 		String[] division = nombre.split(" ");
 		for (int i = 0; i < division.length; i++) {
 			nombre = division[i];
-			if (division[i]!=" ") {
-			iniciales = nombre.charAt(0);
-			inicialesCadena = inicialesCadena + iniciales;
+			if (division[i] != " ") {
+				iniciales = nombre.charAt(0);
+				inicialesCadena = inicialesCadena + iniciales;
 			} else {
 			}
 		}
@@ -102,9 +103,7 @@ public class Contacto {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((correo == null) ? 0 : correo.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-		result = prime * result + ((telefono == null) ? 0 : telefono.hashCode());
 		return result;
 	}
 
@@ -117,22 +116,14 @@ public class Contacto {
 		if (getClass() != obj.getClass())
 			return false;
 		Contacto other = (Contacto) obj;
-		if (correo == null) {
-			if (other.correo != null)
-				return false;
-		} else if (!correo.equals(other.correo))
-			return false;
 		if (nombre == null) {
 			if (other.nombre != null)
 				return false;
-		} else if (!nombre.equals(other.nombre))
-			return false;
-		if (telefono == null) {
-			if (other.telefono != null)
-				return false;
-		} else if (!telefono.equals(other.telefono))
+		} else if (!nombre.equalsIgnoreCase(other.nombre))
 			return false;
 		return true;
 	}
+
+	
 
 }
