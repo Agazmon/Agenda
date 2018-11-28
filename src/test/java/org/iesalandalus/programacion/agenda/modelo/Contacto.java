@@ -9,7 +9,27 @@ public class Contacto {
 	private String nombre;
 	private String telefono;
 	private String correo;
-
+	public Contacto(String nombre, String telefono, String correo) {
+		if (nombre == null | nombre == "")
+			throw new IllegalArgumentException("El nombre de un contacto no puede ser nulo o vacío.");
+		else if (nombre != this.nombre) {
+			throw new IllegalArgumentException("No puedes cambiarle el nombre");
+		} else {
+			setNombre(nombre);
+		}
+		Pattern entrada_telefono = Pattern.compile(ER_TELEFONO);
+		if (telefono.charAt(0) != '6' & telefono.charAt(0) != '9') {
+			throw new IllegalArgumentException("El teléfono de un contacto debe empezar por 6 o 9");
+		} else if (telefono.matches(ER_TELEFONO)) {
+			setTelefono(telefono);
+		} else {
+			throw new IllegalArgumentException("El teléfono de un contacto no puede ser nulo o vacío.");
+		}
+		Pattern entrada_correo = Pattern.compile(ER_CORREO);
+		if (telefono.matches(ER_CORREO)) {
+			setCorreo(correo);
+		}
+	}
 	public String getNombre() {
 		return this.nombre;
 	}
