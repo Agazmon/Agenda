@@ -4,7 +4,7 @@ import javax.naming.OperationNotSupportedException;
 
 public class Agenda {
 	private static final int MAX_CONTACTOS = 99; /* Max contactos tampoco se a que se refiere por ahora */
-	private int numContactos;
+	private int numContactos = 0;
 	Contacto[] contactos;
 
 	public Agenda() {
@@ -25,8 +25,9 @@ public class Agenda {
 		return numContactos;
 	}
 
-	public void añadir(Contacto contactoNuevo) throws OperationNotSupportedException {
+	public void anadir(Contacto contactoNuevo) throws OperationNotSupportedException {
 		contactos[buscarPrimerIndiceComprobandoExistencia(contactoNuevo)] = contactoNuevo;
+		numContactos++;
 	}
 
 	private int buscarPrimerIndiceComprobandoExistencia(Contacto contactoIndice) throws OperationNotSupportedException {
@@ -42,7 +43,7 @@ public class Agenda {
 							"El contacto no se puede almacenar en la agenda dado que no hay espacio");
 				}
 			} else if (contactos[q] == contactoIndice) {
-				throw new OperationNotSupportedException("El contacto ya existe");
+				throw new OperationNotSupportedException("Ya existe un contacto con ese nombre.");
 			}
 		}
 		return indice;
@@ -58,4 +59,35 @@ public class Agenda {
 		return comprobacion;
 	}
 
+	public Contacto buscar(String nombreBuscar) {
+		Contacto contactoEncontrado = null;
+		int indice;
+		indice = buscarIndiceCliente(nombreBuscar);
+		if (indice != -1) {
+			contactoEncontrado = contactos[indice];
+			return contactoEncontrado;
+		} else {
+			for (int z = 0; z < numContactos; z++) {
+				if (contactos[z].equals(null)) {
+					contactoEncontrado = contactos[z];
+					return contactoEncontrado;
+				}
+			}
+		}
+		return contactoEncontrado;
+	}
+
+	private int buscarIndiceCliente(String nombreBusqueda) {
+		int indiceContacto = -1;
+		Contacto contactoActual;
+		for (int z = 0; z < numContactos; z++) {
+			contactoActual = contactos[z];
+			if (nombreBusqueda.equals(contactoActual.getNombre())) {
+				indiceContacto = z;
+
+			}
+
+		}
+		return indiceContacto;
+	}
 }

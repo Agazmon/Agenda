@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class AgendaTest {
 	
-/*	private static final String MENSAJE_EXCEPCION = "Debería haber saltado la excepción.";
+	private static final String MENSAJE_EXCEPCION = "Debería haber saltado la excepción.";
 	private static final String MENSAJE_NO_EXCEPCION = "No debería haber saltado la excepción.";
 
 
@@ -83,7 +83,7 @@ public class AgendaTest {
 		Contacto contacto = agenda.buscar(contacto2.getNombre());
 		assertNull(contacto);
 	}
-	
+	/*
 	@Test
 	public void borrarContactoExistenteTest() {
 		try {

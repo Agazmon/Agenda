@@ -3,7 +3,7 @@ package org.iesalandalus.programacion.agenda.modelo;
 public class Contacto {
 
 	private static final String ER_TELEFONO = "[69]\\d{8}";
-	private static final String ER_CORREO = "\\w+-*.*\\w*+@\\w[^1-9+-]+\\.+\\w+{2,5}";
+	private static final String ER_CORREO = "\\w+\\-*\\.*\\w*\\@\\w*[^1-9\\-]\\.\\w{1,5}";
 	private String nombre;
 	private String telefono;
 	private String correo;
