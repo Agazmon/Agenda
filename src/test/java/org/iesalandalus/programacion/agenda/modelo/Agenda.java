@@ -3,7 +3,7 @@ package org.iesalandalus.programacion.agenda.modelo;
 import javax.naming.OperationNotSupportedException;
 
 public class Agenda {
-	private static final int MAX_CONTACTOS = 99; /* Max contactos tampoco se a que se refiere por ahora */
+	private static final int MAX_CONTACTOS = 100; /* Max contactos tampoco se a que se refiere por ahora */
 	private int numContactos = 0;
 	Contacto[] contactos;
 
@@ -31,22 +31,28 @@ public class Agenda {
 	}
 
 	private int buscarPrimerIndiceComprobandoExistencia(Contacto contactoIndice) throws OperationNotSupportedException {
-		int indice = 0;
+		int indice=0;
 		if (contactoIndice == null) {
 			throw new IllegalArgumentException("El contacto no puede ser nulo");
-		}
-		for (int q = 0; q < numContactos; q++) {
-			if (contactos[q] == null) {
-				indice = q;
-				if (indiceNoSuperaTamano(indice)) {
-					throw new OperationNotSupportedException(
-							"El contacto no se puede almacenar en la agenda dado que no hay espacio");
-				}
-			} else if (contactos[q] == contactoIndice) {
-				throw new OperationNotSupportedException("Ya existe un contacto con ese nombre.");
+		} else {
+			for (int q=0;q<numContactos+1;q++) {
+				if (contactos[q]==null) {
+					if (indiceNoSuperaTamano(indice)) {
+						indice=q;
+						return indice;
+					}
+				} else if(contactos[q]!=null) {
+					if(contactos[q]==contactoIndice) {
+						throw new OperationNotSupportedException("Ya existe un contacto con ese nombre.");
+					} else if (contactos[q+1]==null){
+						indice=q+1;
+						return indice;
+					}
+				} 
 			}
-		}
-		return indice;
+			
+		}return indice;
+			
 	}
 
 	private boolean indiceNoSuperaTamano(int Indice) {
@@ -101,25 +107,27 @@ public class Agenda {
 			throw new OperationNotSupportedException("El contacto a borrar no existe.");
 
 		} else {
-			indiceBorrado=buscarIndiceCliente(nombreBorrar);
+			indiceBorrado = buscarIndiceCliente(nombreBorrar);
 			contactos[indiceBorrado] = null;
 			desplazarUnaPosicionHaciaIzquierda(indiceBorrado);
-			numContactos=numContactos-1;
+			numContactos = numContactos - 1;
 		}
 
 	}
 
 	private void desplazarUnaPosicionHaciaIzquierda(int Posicion) {
-		for(int z=0;z<numContactos;z++) {
-			if (contactos[z+1] != null) { /*El codigo esta hecho de forma que compacte siempre la agenda para que no haya espacios nulos o esa es la intención*/
-				contactos[z]=null;
-				contactos[z]=new Contacto(contactos[z+1].getNombre(),contactos[z+1].getTelefono(),contactos[z+1].getCorreo());
-				contactos[z+1]=null;
+		for (int z = 0; z < numContactos; z++) {
+			if (contactos[z + 1] != null) { /*
+											 * El codigo esta hecho de forma que compacte siempre la agenda para que no
+											 * haya espacios nulos o esa es la intención
+											 */
+				contactos[z] = null;
+				contactos[z] = new Contacto(contactos[z + 1].getNombre(), contactos[z + 1].getTelefono(),
+						contactos[z + 1].getCorreo());
+				contactos[z + 1] = null;
 			}
 		}
-		
-			}
 
 	}
 
-
+}
