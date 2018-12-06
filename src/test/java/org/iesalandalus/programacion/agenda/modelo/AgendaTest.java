@@ -83,7 +83,7 @@ public class AgendaTest {
 		Contacto contacto = agenda.buscar(contacto2.getNombre());
 		assertNull(contacto);
 	}
-	/*
+	
 	@Test
 	public void borrarContactoExistenteTest() {
 		try {
@@ -147,5 +147,5 @@ public class AgendaTest {
 		assertNull(agenda.buscar(contacto3.getNombre()));
 		assertEquals(2, agenda.getNumContactos());
 	}
-*/
+
 }

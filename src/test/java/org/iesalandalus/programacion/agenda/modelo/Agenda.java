@@ -80,14 +80,46 @@ public class Agenda {
 	private int buscarIndiceCliente(String nombreBusqueda) {
 		int indiceContacto = -1;
 		Contacto contactoActual;
+
 		for (int z = 0; z < numContactos; z++) {
 			contactoActual = contactos[z];
-			if (nombreBusqueda.equals(contactoActual.getNombre())) {
+			if (contactoActual != null) {
+				if (nombreBusqueda.equals(contactoActual.getNombre())) {
+					indiceContacto = z;
+				}
+			} else if (contactoActual == null) {
 				indiceContacto = z;
-
 			}
-
 		}
 		return indiceContacto;
 	}
-}
+
+	public void borrar(String nombreBorrar) throws OperationNotSupportedException {
+		int indiceBorrado = -1;
+		indiceBorrado = buscarIndiceCliente(nombreBorrar);
+		if (indiceBorrado == -1) {
+			throw new OperationNotSupportedException("El contacto a borrar no existe.");
+
+		} else {
+			indiceBorrado=buscarIndiceCliente(nombreBorrar);
+			contactos[indiceBorrado] = null;
+			desplazarUnaPosicionHaciaIzquierda(indiceBorrado);
+			numContactos=numContactos-1;
+		}
+
+	}
+
+	private void desplazarUnaPosicionHaciaIzquierda(int Posicion) {
+		for(int z=0;z<numContactos;z++) {
+			if (contactos[z+1] != null) { /*El codigo esta hecho de forma que compacte siempre la agenda para que no haya espacios nulos o esa es la intención*/
+				contactos[z]=null;
+				contactos[z]=new Contacto(contactos[z+1].getNombre(),contactos[z+1].getTelefono(),contactos[z+1].getCorreo());
+				contactos[z+1]=null;
+			}
+		}
+		
+			}
+
+	}
+
+
